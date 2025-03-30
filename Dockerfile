@@ -14,7 +14,7 @@ RUN \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install -y --no-install-recommends \
-    noto-fonts-cjk \
+    fonts-noto-cjk \
     chromium \
     chromium-l10n \
     dolphin \
