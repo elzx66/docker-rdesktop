@@ -27,5 +27,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/linuxserver-wps-office-pycharm:1.0.0
-            ghcr.io/${{ github.repository_owner }}/linuxserver-wps-office-pycharm:latest
+            ghcr.io/${{ github.repository_owner }}/linuxserver-rdesktop:1.0.0
+            ghcr.io/${{ github.repository_owner }}/linuxserver-rdesktop:latest
