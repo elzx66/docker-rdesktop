@@ -6,11 +6,15 @@ ARG VERSION
 LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DATE}"
 LABEL maintainer="thelamer"
 
+#my
+ENV LC_ALL=zh_CN.UTF-8
+
 RUN \
   echo "**** install packages ****" && \
   apt-get update && \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install -y --no-install-recommends \
+    noto-fonts-cjk \
     chromium \
     chromium-l10n \
     dolphin \
