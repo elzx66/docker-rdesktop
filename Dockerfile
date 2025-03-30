@@ -15,6 +15,8 @@ RUN \
   DEBIAN_FRONTEND=noninteractive \
   apt-get install -y --no-install-recommends \
     fonts-noto-cjk \
+    fcitx \
+    fcitx-googlepinyin \
     chromium \
     chromium-l10n \
     dolphin \
@@ -52,6 +54,13 @@ RUN \
 
 # add local files
 COPY /root /
+
+# 设置环境变量以启用 fcitx 输入法
+ENV GTK_IM_MODULE=fcitx
+ENV QT_IM_MODULE=fcitx
+ENV XMODIFIERS=@im=fcitx
+
+RUN echo "[InputMethodList]\nDefaultIM=googlepinyin" > /config/.config/fcitx/profile
 
 # ports and volumes
 EXPOSE 3389
