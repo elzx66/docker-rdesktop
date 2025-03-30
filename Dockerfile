@@ -60,7 +60,8 @@ ENV GTK_IM_MODULE=fcitx
 ENV QT_IM_MODULE=fcitx
 ENV XMODIFIERS=@im=fcitx
 
-RUN echo "[InputMethodList]\nDefaultIM=googlepinyin" > /config/.config/fcitx/profile
+RUN mkdir -p $HOME/.config/fcitx
+RUN echo "[InputMethodList]\nDefaultIM=googlepinyin" > $HOME/.config/fcitx/profile
 
 # ports and volumes
 EXPOSE 3389
