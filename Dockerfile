@@ -63,15 +63,22 @@ RUN \
 # add local files
 COPY /root /
 
-
 # USER root
 # 使用 im-config 初始化输入法，生成所需的$HOME/config/.xinputrc
-RUN im-config -n fcitx && \
-    cat $HOME/config/.xinputrc
+# RUN im-config -n fcitx && \
+#     cat $HOME/config/.xinputrc
 # && \
 #     mv ./.xinputrc $HOME/config/.xinputrc
 # USER abc
 
+# 使用 im-config 初始化输入法并添加调试信息
+RUN im-config -n fcitx || { echo "im-config failed"; exit 1; } && \
+    ls -alh /root
+    # && \
+    # mkdir -p $HOME/.config/xinput && \
+    # mv /root/.xinputrc $HOME/.config/xinput/.xinputrc
+
 # ports and volumes
 EXPOSE 3389
+
 VOLUME /config
