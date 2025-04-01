@@ -15,12 +15,6 @@ RUN apt-get update && apt-get install -y fonts-noto-cjk \
     fcitx-pinyin \
     fcitx-config-gtk
 
-USER root
-# 使用 im-config 初始化输入法，生成所需的$HOME/config/.xinputrc
-RUN im-config -n fcitx && \
-    mv ./.xinputrc $HOME/config/.xinputrc
-USER abc
-
 # my设置输入法环境变量
 ENV QT_IM_MODULE=fcitx
 ENV XMODIFIERS=@im=fcitx
@@ -68,6 +62,14 @@ RUN \
 
 # add local files
 COPY /root /
+
+
+# USER root
+# 使用 im-config 初始化输入法，生成所需的$HOME/config/.xinputrc
+RUN im-config -n fcitx
+# && \
+#     mv ./.xinputrc $HOME/config/.xinputrc
+# USER abc
 
 # ports and volumes
 EXPOSE 3389
