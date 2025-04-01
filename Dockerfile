@@ -72,7 +72,7 @@ COPY /root /
 # USER abc
 
 # 使用 im-config 初始化输入法并添加调试信息
-RUN mkdir -p /home/abc/ && \
+RUN mkdir -p /home/abc && \
     im-config -n fcitx || { echo "im-config failed"; exit 1; } && \
     ls -alh /home/abc
     # && \
