@@ -55,13 +55,31 @@ RUN \
 # add local files
 COPY /root /
 
-# 设置环境变量以启用 fcitx 输入法
-ENV GTK_IM_MODULE=fcitx
+# # 设置环境变量以启用 fcitx 输入法
+# ENV GTK_IM_MODULE=fcitx
+# ENV QT_IM_MODULE=fcitx
+# ENV XMODIFIERS=@im=fcitx
+
+# RUN mkdir -p $HOME/.config/fcitx
+# RUN echo "[InputMethodList]\nDefaultIM=googlepinyin" > $HOME/.config/fcitx/profile
+
+# 安装 Fcitx 输入法框架和中文输入法
+RUN apt-get update && apt-get install -y fcitx fcitx-pinyin fcitx-config-gtk
+
+# my设置输入法环境变量
 ENV QT_IM_MODULE=fcitx
 ENV XMODIFIERS=@im=fcitx
+ENV GTK_IM_MODULE=fcitx
 
+#  my创建 Fcitx 配置目录
 RUN mkdir -p $HOME/.config/fcitx
-RUN echo "[InputMethodList]\nDefaultIM=googlepinyin" > $HOME/.config/fcitx/profile
+
+#  my写入 Fcitx 配置文件，将中文输入法设置为第一个
+RUN echo -e "[Groups]\n0=fcitx-pinyin\n1=keyboard-us\n\n[GroupOrder]\n0=0\n1=1" > $HOME/.config/fcitx/profile
+
+#  my配置 Fcitx 开机自启
+RUN mkdir -p $HOME/.config/autostart
+RUN echo -e "[Desktop Entry]\nType=Application\nExec=fcitx -r -d\nHidden=false\nNoDisplay=false\nX-GNOME-Autostart-enabled=true\nName=fcitx\nComment=Start fcitx input method" > $HOME/.config/autostart/fcitx.desktop
 
 # ports and volumes
 EXPOSE 3389
