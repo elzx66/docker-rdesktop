@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y fonts-noto-cjk \
 USER root
 # 使用 im-config 初始化输入法，生成所需的$HOME/config/.xinputrc
 RUN im-config -n fcitx && \
-    mv /root/.xinputrc $HOME/config/.xinputrc
+    mv ./.xinputrc $HOME/config/.xinputrc
 USER abc
 
 # my设置输入法环境变量
