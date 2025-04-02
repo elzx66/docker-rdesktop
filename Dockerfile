@@ -8,17 +8,39 @@ LABEL maintainer="thelamer"
 
 #my
 ENV LC_ALL=zh_CN.UTF-8
-
-# 安装中文字体、 Fcitx 输入法框架和中文输入法。进入系统要手动激活一下：在应用程序搜索栏搜索"input"，在搜索结果中点击"Fcitx"即可，不是“Fcitx配置”
-RUN apt-get update && apt-get install -y fonts-noto-cjk \
-    fcitx \
-    fcitx-pinyin \
-    fcitx-config-gtk
-
 # my设置输入法环境变量
 ENV QT_IM_MODULE=fcitx
 ENV XMODIFIERS=@im=fcitx
 ENV GTK_IM_MODULE=fcitx
+
+# 安装中文字体、 Fcitx 输入法框架和中文输入法。进入系统要手动激活一下：在应用程序搜索栏搜索"input"，在搜索结果中点击"Fcitx"即可，不是“Fcitx配置”
+RUN \
+  echo "**** install packages ****" && \
+  apt-get update && \
+  DEBIAN_FRONTEND=noninteractive \
+  apt-get install -y --no-install-recommends \
+    fonts-noto-cjk \
+    fcitx \
+    fcitx-pinyin \
+    fcitx-config-gtk && \
+  echo "**** install wps-office ****" && \
+  cd /tmp && \  
+  wget -O wps-office.deb $(wget -q -O - https://wps-community.org/download/ \
+  | grep -oP 'https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/[0-9.]+/wps-office_.*_amd64.deb') && \
+  dpkg -i wps-office.deb \
+  || apt-get -f install -y && \
+  rm wps-office.deb && \
+  mkdir /tmp/fonts && \
+  wget -o /tmp/fonts.tar.gz -L "https://github.com/BannedPatriot/ttf-wps-fonts/archive/refs/heads/master.tar.gz" && \
+  tar xf /tmp/fonts.tar.gz -C /tmp/fonts/ --strip-components=1 && \
+  cd /tmp/fonts && \
+  bash install.sh && \
+  echo "**** install pycharm community ****" && \
+  wget -O pycharm.tar.gz $(wget -q -O - https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux&code=PCC \
+  | grep -oP 'https://download.jetbrains.com/python/pycharm-community-[0-9.]+.tar.gz') && \
+  tar -xzf pycharm.tar.gz -C /opt && \
+  rm pycharm.tar.gz && \
+  ln -s /opt/pycharm-community-*/bin/pycharm.sh /usr/local/bin/pycharm
 
 RUN \
   echo "**** install packages ****" && \
