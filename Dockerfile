@@ -9,7 +9,7 @@ LABEL maintainer="thelamer"
 #my
 ENV LC_ALL=zh_CN.UTF-8
 
-# 安装中文字体、 Fcitx 输入法框架和中文输入法
+# 安装中文字体、 Fcitx 输入法框架和中文输入法。进入系统要手动激活一下：在应用程序搜索栏搜索"input"，在搜索结果中点击"Fcitx"即可，不是“Fcitx配置”
 RUN apt-get update && apt-get install -y fonts-noto-cjk \
     fcitx \
     fcitx-pinyin \
