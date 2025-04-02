@@ -22,7 +22,9 @@ RUN \
     fonts-noto-cjk \
     fcitx \
     fcitx-pinyin \
-    fcitx-config-gtk && \
+    fcitx-config-gtk
+    
+RUN \
   echo "**** install wps-office ****" && \
   cd /tmp && \  
   wget -O wps-office.deb $(wget -q -O - https://wps-community.org/download/ \
@@ -34,7 +36,8 @@ RUN \
   wget -o /tmp/fonts.tar.gz -L "https://github.com/BannedPatriot/ttf-wps-fonts/archive/refs/heads/master.tar.gz" && \
   tar xf /tmp/fonts.tar.gz -C /tmp/fonts/ --strip-components=1 && \
   cd /tmp/fonts && \
-  bash install.sh && \
+  bash install.sh
+RUN \
   echo "**** install pycharm community ****" && \
   wget -O pycharm.tar.gz $(wget -q -O - https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux&code=PCC \
   | grep -oP 'https://download.jetbrains.com/python/pycharm-community-[0-9.]+.tar.gz') && \
