@@ -26,12 +26,9 @@ RUN \
     
 RUN \
   echo "**** install wps-office ****" && \
-  cd /tmp && \  
-  wget -O wps-office.deb $(wget -q -O - https://wps-community.org/download/ \
-  | grep -oP 'https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/[0-9.]+/wps-office_.*_amd64.deb') && \
-  dpkg -i wps-office.deb \
-  || apt-get -f install -y && \
-  rm wps-office.deb && \
+  apt-get install -y --no-install-recommends \  
+  wps-office && \
+  cd /tmp && \
   mkdir /tmp/fonts && \
   wget -o /tmp/fonts.tar.gz -L "https://github.com/BannedPatriot/ttf-wps-fonts/archive/refs/heads/master.tar.gz" && \
   tar xf /tmp/fonts.tar.gz -C /tmp/fonts/ --strip-components=1 && \
