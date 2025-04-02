@@ -72,9 +72,9 @@ COPY /root /
 # USER abc
 
 # 使用 im-config 初始化输入法并添加调试信息
-RUN mkdir -p /home/abc && \
+RUN set -x && \
     im-config -n fcitx || { echo "im-config failed"; exit 1; } && \
-    ls -alh /home/abc
+    find / -name ".xinputrc"
     # && \
     # mkdir -p $HOME/.config/xinput && \
     # mv /root/.xinputrc $HOME/.config/xinput/.xinputrc
