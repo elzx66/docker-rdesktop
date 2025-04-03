@@ -51,7 +51,8 @@ RUN apt-get install -y \
     libxext6 \
     libxtst6 \
     libnss3 \
-    libasound2
+    libasound2 \
+    xdg-utils
 
 # 再次更新 apt 源并安装 WPS Office
 RUN apt-get update \
