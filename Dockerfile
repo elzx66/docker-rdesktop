@@ -27,9 +27,11 @@ RUN \
 # 添加 WPS Office 的软件源
 RUN echo "deb http://repo.wps.cn/ubuntu/ trusty main" > /etc/apt/sources.list.d/wps-office.list
 
-# 导入 GPG 密钥
-RUN apt-get update && apt-get install -y wget \
-    && wget -q -O - http://repo.wps.cn/ubuntu/pubkey.gpg | apt-key add -
+# 安装必要的工具
+RUN apt-get update && apt-get install -y wget gnupg2
+
+# 下载 GPG 密钥并添加到 trusted.gpg.d 目录
+RUN wget -q -O /usr/share/keyrings/wps-office-archive-keyring.gpg http://repo.wps.cn/ubuntu/pubkey.gpg
 
 # 更新软件包列表并安装 WPS Office
 RUN apt-get update && apt-get install -y --no-install-recommends wps-office \
