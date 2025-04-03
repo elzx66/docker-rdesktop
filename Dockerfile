@@ -23,17 +23,20 @@ RUN \
     fcitx \
     fcitx-pinyin \
     fcitx-config-gtk
-    
+
 RUN \
   echo "**** install wps-office ****" && \
   apt-get install -y --no-install-recommends \  
-  wps-office && \
+  wps-office
+    
+RUN \
   cd /tmp && \
   mkdir /tmp/fonts && \
   wget -o /tmp/fonts.tar.gz -L "https://github.com/BannedPatriot/ttf-wps-fonts/archive/refs/heads/master.tar.gz" && \
   tar xf /tmp/fonts.tar.gz -C /tmp/fonts/ --strip-components=1 && \
   cd /tmp/fonts && \
   bash install.sh
+
 RUN \
   echo "**** install pycharm community ****" && \
   wget -O pycharm.tar.gz $(wget -q -O - https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux&code=PCC \
