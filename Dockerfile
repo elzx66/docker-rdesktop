@@ -62,7 +62,7 @@ RUN apt-get update \
 RUN \
   cd /tmp && \
   mkdir /tmp/fonts && \
-  wget -o /tmp/fonts.tar.gz -L "https://github.com/BannedPatriot/ttf-wps-fonts/archive/refs/heads/master.tar.gz" && \
+  wget -O /tmp/fonts.tar.gz -L "https://github.com/BannedPatriot/ttf-wps-fonts/archive/refs/heads/master.tar.gz" && \
   tar xf /tmp/fonts.tar.gz -C /tmp/fonts/ --strip-components=1 && \
   cd /tmp/fonts && \
   bash install.sh
