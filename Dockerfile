@@ -45,7 +45,7 @@ RUN wget https://repo.debiancn.org/pool/main/d/debiancn-keyring/debiancn-keyring
     && rm /tmp/debiancn-keyring.deb
 
 # 安装 WPS Office
-RUN apt-get install -y wps-office sogoupinyin
+RUN apt-get install -y wps-office
 
 RUN \
   cd /tmp && \
