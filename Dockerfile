@@ -24,19 +24,12 @@ RUN \
     fcitx-pinyin \
     fcitx-config-gtk
 
-# 添加 WPS Office 的软件源
-RUN echo "deb http://repo.wps.cn/ubuntu/ trusty main" > /etc/apt/sources.list.d/wps-office.list
-
-# 安装必要的工具
-RUN apt-get update && apt-get install -y wget gnupg2
-
-# 下载 GPG 密钥并添加到 trusted.gpg.d 目录
-RUN wget -q -O /usr/share/keyrings/wps-office-archive-keyring.gpg http://repo.wps.cn/ubuntu/pubkey.gpg
-
-# 更新软件包列表并安装 WPS Office
-RUN apt-get update && apt-get install -y --no-install-recommends wps-office \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+# 下载并安装 WPS Office，这里需要你手动替换为有效的下载地址
+ARG WPS_OFFICE_URL=https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2023/17900/wps-office_12.1.0.17900_amd64.deb?t=1743576350&k=60aea8a6ce99ea9299b44e29feb1d8d4
+RUN wget -O wps-office.deb $WPS_OFFICE_URL \
+    && dpkg -i wps-office.deb \
+    || apt-get -f install -y \
+    && rm wps-office.deb
     
 RUN \
   cd /tmp && \
