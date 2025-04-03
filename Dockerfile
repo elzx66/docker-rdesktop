@@ -67,13 +67,14 @@ RUN \
   cd /tmp/fonts && \
   bash install.sh
 
-RUN \
-  echo "**** install pycharm community ****" && \
-  wget -O pycharm.tar.gz $(wget -q -O - https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=linux&code=PCC \
-  | grep -oP 'https://download.jetbrains.com/python/pycharm-community-[0-9.]+.tar.gz') && \
-  tar -xzf pycharm.tar.gz -C /opt && \
-  rm pycharm.tar.gz && \
-  ln -s /opt/pycharm-community-*/bin/pycharm.sh /usr/local/bin/pycharm
+# 下载并安装 PyCharm 社区版，使用手动指定的下载地址
+ARG PYCHARM_VERSION=2024.3.4
+ARG PYCHARM_URL=https://download.jetbrains.com/python/pycharm-community-${PYCHARM_VERSION}.tar.gz
+RUN echo "**** install pycharm community ****" \
+    && wget -O pycharm.tar.gz $PYCHARM_URL \
+    && tar -xzf pycharm.tar.gz -C /opt \
+    && rm pycharm.tar.gz \
+    && ln -s /opt/pycharm-community-*/bin/pycharm.sh /usr/local/bin/pycharm
 
 RUN \
   echo "**** install packages ****" && \
