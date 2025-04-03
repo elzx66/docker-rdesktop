@@ -24,9 +24,9 @@ RUN \
     fcitx-pinyin \
     fcitx-config-gtk
 
-# RUN \
-#   echo "**** install packages ****" && \ 
-#   apt-get update && apt-get install -y  wget  tar  unzip
+RUN \
+  echo "**** install packages ****" && \ 
+  apt-get update && apt-get install -y  wget  tar  unzip
 
 # # 下载并安装 WPS Office，这里需要你手动替换为有效的下载地址
 # ARG WPS_OFFICE_URL=https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2023/17900/wps-office_12.1.0.17900_amd64.deb?t=1743576350&k=60aea8a6ce99ea9299b44e29feb1d8d4
