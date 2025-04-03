@@ -24,13 +24,29 @@ RUN \
     fcitx-pinyin \
     fcitx-config-gtk
 
-# 下载并安装 WPS Office，这里需要你手动替换为有效的下载地址
-ARG WPS_OFFICE_URL=https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2023/17900/wps-office_12.1.0.17900_amd64.deb?t=1743576350&k=60aea8a6ce99ea9299b44e29feb1d8d4
-RUN wget -O wps-office.deb $WPS_OFFICE_URL \
-    && dpkg -i wps-office.deb \
-    || apt-get -f install -y \
-    && rm wps-office.deb
-    
+# RUN \
+#   echo "**** install packages ****" && \ 
+#   apt-get update && apt-get install -y  wget  tar  unzip
+
+# # 下载并安装 WPS Office，这里需要你手动替换为有效的下载地址
+# ARG WPS_OFFICE_URL=https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2023/17900/wps-office_12.1.0.17900_amd64.deb?t=1743576350&k=60aea8a6ce99ea9299b44e29feb1d8d4
+# RUN wget -O wps-office.deb $WPS_OFFICE_URL \
+#     && dpkg -i wps-office.deb \
+#     || apt-get -f install -y \
+#     && rm wps-office.deb
+
+# 写入新的 sources.list.d 文件
+RUN echo 'Enabled: yes\nTypes: deb\nURIs: http://repo.debiancn.org/\nSuites: bookworm\nComponents: main\nSigned-By: /usr/share/keyrings/debiancn-keyring.gpg' > /etc/apt/sources.list.d/debiancn.sources
+
+# 下载并安装 debiancn 密钥环
+RUN wget https://repo.debiancn.org/pool/main/d/debiancn-keyring/debiancn-keyring_0~20250123_all.deb -O /tmp/debiancn-keyring.deb \
+    && apt install -y /tmp/debiancn-keyring.deb \
+    && apt-get update \
+    && rm /tmp/debiancn-keyring.deb
+
+# 安装 WPS Office
+RUN apt-get install -y wps-office
+
 RUN \
   cd /tmp && \
   mkdir /tmp/fonts && \
