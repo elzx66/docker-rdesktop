@@ -44,8 +44,19 @@ RUN wget https://repo.debiancn.org/pool/main/d/debiancn-keyring/debiancn-keyring
     && apt-get update \
     && rm /tmp/debiancn-keyring.deb
 
-# 安装 WPS Office
-RUN apt-get install -y wps-office
+# 安装 WPS Office 可能需要的额外依赖
+RUN apt-get install -y \
+    libglib2.0-0 \
+    libxrender1 \
+    libxext6 \
+    libxtst6 \
+    libnss3 \
+    libasound2
+
+# 再次更新 apt 源并安装 WPS Office
+RUN apt-get update \
+    && apt-get install -y wps-office \
+    || { apt-get -f install -y; exit 1; }
 
 RUN \
   cd /tmp && \
