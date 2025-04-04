@@ -8,6 +8,8 @@ LABEL maintainer="thelamer"
 
 #my
 ENV LC_ALL=zh_CN.UTF-8
+ENV LANG=zh_CN.UTF-8
+ENV LANGUAGE=zh_CN.UTF-8
 
 # 安装中文字体、 Fcitx 输入法框架和中文输入法。进入系统要手动激活一下：在应用程序搜索栏搜索"input"，在搜索结果中点击"Fcitx"即可，不是“Fcitx配置”
 RUN \
@@ -18,12 +20,20 @@ RUN \
     fonts-noto-cjk \
     fcitx \
     fcitx-pinyin \
-    fcitx-config-gtk
-    
+    fcitx-config-gtk \
+    locales && \
+  sed -i 's/# zh_CN.UTF-8 UTF-8/zh_CN.UTF-8 UTF-8/' /etc/locale.gen && \
+  locale-gen
+
 # my设置输入法环境变量
 ENV QT_IM_MODULE=fcitx
 ENV XMODIFIERS=@im=fcitx
 ENV GTK_IM_MODULE=fcitx
+
+# 确保环境变量在所有会话中生效
+RUN echo 'export QT_IM_MODULE=fcitx' >> /etc/profile && \
+    echo 'export XMODIFIERS=@im=fcitx' >> /etc/profile && \
+    echo 'export GTK_IM_MODULE=fcitx' >> /etc/profile
 
 RUN \
   echo "**** Install tools packages ****" && \
@@ -104,6 +114,25 @@ RUN \
     /var/lib/apt/lists/* \
     /var/tmp/* \
     /tmp/*
+
+# #my
+# ENV LC_ALL=zh_CN.UTF-8
+
+# # 安装中文字体、 Fcitx 输入法框架和中文输入法。进入系统要手动激活一下：在应用程序搜索栏搜索"input"，在搜索结果中点击"Fcitx"即可，不是“Fcitx配置”
+# RUN \
+#   echo "**** install packages ****" && \
+#   apt-get update && \
+#   DEBIAN_FRONTEND=noninteractive \
+#   apt-get install -y --no-install-recommends \
+#     fonts-noto-cjk \
+#     fcitx \
+#     fcitx-pinyin \
+#     fcitx-config-gtk
+    
+# # my设置输入法环境变量
+# ENV QT_IM_MODULE=fcitx
+# ENV XMODIFIERS=@im=fcitx
+# ENV GTK_IM_MODULE=fcitx
 
 # add local files
 COPY /root /
