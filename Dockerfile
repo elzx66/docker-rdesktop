@@ -7,22 +7,22 @@ LABEL build_version="Linuxserver.io version:- ${VERSION} Build-date:- ${BUILD_DA
 LABEL maintainer="thelamer"
 
 ####### my added code ########
+#设置中文变量
 ENV LC_ALL=zh_CN.UTF-8
+# 设置输入法环境变量
+ENV QT_IM_MODULE=fcitx
+ENV XMODIFIERS=@im=fcitx
+ENV GTK_IM_MODULE=fcitx
 
 # 安装中文字体、 Fcitx 输入法框架和中文输入法。进入系统要手动激活一下：在应用程序搜索栏搜索"input"，在搜索结果中点击"Fcitx"即可，不是“Fcitx配置”
 RUN \
-  echo "**** install packages ****" && \
+  echo "**** install chinese fonts and input ****" && \
   apt-get update && apt-get install -y \
     fonts-noto-cjk \
     fcitx \
     fcitx-pinyin \
     fcitx-config-gtk
-
-# my设置输入法环境变量
-ENV QT_IM_MODULE=fcitx
-ENV XMODIFIERS=@im=fcitx
-ENV GTK_IM_MODULE=fcitx
-
+    
 RUN \
   echo "**** Install tools packages ****" && \
   apt-get update && \
