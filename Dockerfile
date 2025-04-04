@@ -26,34 +26,29 @@ ENV XMODIFIERS=@im=fcitx
 ENV GTK_IM_MODULE=fcitx
 
 RUN \
-  echo "**** install packages ****" && \ 
-  apt-get update && apt-get install -y wget tar unzip
+  echo "**** Install tools packages ****" && \
+  apt-get update && \
+  DEBIAN_FRONTEND=noninteractive \
+  apt-get install -y --no-install-recommends \
+  wget tar unzip && \
+  echo "**** update  sources; write to sources.list.d ****" && \
+  echo 'Enabled: yes\nTypes: deb\nURIs: http://repo.debiancn.org/\nSuites: \
+  bookworm\nComponents: main\nSigned-By: /usr/share/keyrings/debiancn-keyring.gpg' > /etc/apt/sources.list.d/debiancn.sources
+  echo "**** Install debiancn keyring ****" && \
+  wget https://repo.debiancn.org/pool/main/d/debiancn-keyring/debiancn-keyring_0~20250123_all.deb -O /tmp/debiancn-keyring.deb && \
+  apt install -y /tmp/debiancn-keyring.deb && \
+  apt-get update && \
+  rm /tmp/debiancn-keyring.deb
 
-# 写入新的 sources.list.d 文件
-RUN echo 'Enabled: yes\nTypes: deb\nURIs: http://repo.debiancn.org/\nSuites: bookworm\nComponents: main\nSigned-By: /usr/share/keyrings/debiancn-keyring.gpg' > /etc/apt/sources.list.d/debiancn.sources
-
-# 下载并安装 debiancn 密钥环
-RUN wget https://repo.debiancn.org/pool/main/d/debiancn-keyring/debiancn-keyring_0~20250123_all.deb -O /tmp/debiancn-keyring.deb \
-    && apt install -y /tmp/debiancn-keyring.deb \
-    && apt-get update \
-    && rm /tmp/debiancn-keyring.deb
-
-# 安装 WPS Office 可能需要的额外依赖
-RUN apt-get install -y \
-    libglib2.0-0 \
-    libxrender1 \
-    libxext6 \
-    libxtst6 \
-    libnss3 \
-    libasound2 \
-    xdg-utils
-
-# 再次更新 apt 源并安装 WPS Office
-RUN apt-get update \
-    && apt-get install -y wps-office \
-    || { apt-get -f install -y; exit 1; }
-
+# 安装 WPS Office 可能需要的额外依赖以及wps
 RUN \
+  echo "**** Install WPS ****" && \
+  apt-get update && \
+  DEBIAN_FRONTEND=noninteractive \
+  apt-get install -y --no-install-recommends \
+  libglib2.0-0 libxrender1 libxext6 libxtst6 libnss3 libasound2 xdg-utils && \
+  apt-get update && apt-get install -y wps-office || { apt-get -f install -y; exit 1; } && \
+  echo "**** Install WPS Fonts****" && \
   cd /tmp && \
   mkdir /tmp/fonts && \
   wget -O /tmp/fonts.tar.gz -L "https://github.com/BannedPatriot/ttf-wps-fonts/archive/refs/heads/master.tar.gz" && \
