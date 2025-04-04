@@ -33,7 +33,7 @@ RUN \
   wget tar unzip && \
   echo "**** update  sources; write to sources.list.d ****" && \
   echo 'Enabled: yes\nTypes: deb\nURIs: http://repo.debiancn.org/\nSuites: \
-  bookworm\nComponents: main\nSigned-By: /usr/share/keyrings/debiancn-keyring.gpg' > /etc/apt/sources.list.d/debiancn.sources
+  bookworm\nComponents: main\nSigned-By: /usr/share/keyrings/debiancn-keyring.gpg' > /etc/apt/sources.list.d/debiancn.sources && \
   echo "**** Install debiancn keyring ****" && \
   wget https://repo.debiancn.org/pool/main/d/debiancn-keyring/debiancn-keyring_0~20250123_all.deb -O /tmp/debiancn-keyring.deb && \
   apt install -y /tmp/debiancn-keyring.deb && \
