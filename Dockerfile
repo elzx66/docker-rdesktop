@@ -104,6 +104,23 @@ RUN \
     /var/tmp/* \
     /tmp/*
 
+#### my added code ####
+#创建桌面快捷方式：
+RUN \
+  cp /usr/share/applications/chromium.desktop ~/Desktop/ &&\
+  cp /usr/share/applications/im-config.desktop ~/Desktop/ &&\
+  cp /usr/share/applications/wps-office-prometheus.desktop ~/Desktop/ &&\
+  echo \
+    "[Desktop Entry]
+    Name=PyCharm Community Edition
+    Comment=Python IDE
+    Exec=/opt/pycharm-community-${PYCHARM_VERSION}/bin/pycharm.sh
+    Icon=/opt/pycharm-community-${PYCHARM_VERSION}/bin/pycharm.svg
+    Terminal=false
+    Type=Application
+    Categories=Development;IDE;" > /usr/share/applications/pycharm.desktop
+#### my added code ####
+
 # add local files
 COPY /root /
 
