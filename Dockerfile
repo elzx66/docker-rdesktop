@@ -104,24 +104,24 @@ RUN \
     /var/tmp/* \
     /tmp/*
 
-#### my added code ####
-#创建桌面快捷方式：
-RUN \
-  if [ ! -d "${HOME}/Desktop" ]; then \
-    mkdir -p ${HOME}/Desktop; \
-  fi && \
-  #cp /usr/share/applications/im-config.desktop ${HOME}/Desktop/ &&\
-  cp /usr/share/applications/chromium.desktop ${HOME}/Desktop/ &&\
-  cp /usr/share/applications/wps-office-prometheus.desktop ${HOME}/Desktop/ &&\
-  echo "[Desktop Entry]\n\
-Name=PyCharm Community Edition\n\
-Comment=Python IDE\n\
-Exec=/opt/pycharm-community-${PYCHARM_VERSION}/bin/pycharm.sh\n\
-Icon=/opt/pycharm-community-${PYCHARM_VERSION}/bin/pycharm.svg\n\
-Terminal=false\n\
-Type=Application\n\
-Categories=Development;IDE;" > /usr/share/applications/pycharm.desktop
-#### my added code ####
+# #### my added code ####
+# #创建桌面快捷方式：
+# RUN \
+#   if [ ! -d "${HOME}/Desktop" ]; then \
+#     mkdir -p ${HOME}/Desktop; \
+#   fi && \
+#   #cp /usr/share/applications/im-config.desktop ${HOME}/Desktop/ &&\
+#   cp /usr/share/applications/chromium.desktop ${HOME}/Desktop/ &&\
+#   cp /usr/share/applications/wps-office-prometheus.desktop ${HOME}/Desktop/ &&\
+#   echo "[Desktop Entry]\n\
+# Name=PyCharm Community Edition\n\
+# Comment=Python IDE\n\
+# Exec=/opt/pycharm-community-${PYCHARM_VERSION}/bin/pycharm.sh\n\
+# Icon=/opt/pycharm-community-${PYCHARM_VERSION}/bin/pycharm.svg\n\
+# Terminal=false\n\
+# Type=Application\n\
+# Categories=Development;IDE;" > /usr/share/applications/pycharm.desktop
+# #### my added code ####
 
 # add local files
 COPY /root /
@@ -130,3 +130,5 @@ COPY /root /
 EXPOSE 3389
 
 VOLUME /config
+
+CMD ["/defaults/myinit.sh",${HOME},${PYCHARM_VERSION}]
