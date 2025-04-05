@@ -110,15 +110,14 @@ RUN \
   #cp /usr/share/applications/im-config.desktop ~/Desktop/ &&\
   cp /usr/share/applications/chromium.desktop ~/Desktop/ &&\
   cp /usr/share/applications/wps-office-prometheus.desktop ~/Desktop/ &&\
-  echo \
-    "[Desktop Entry]
-    Name=PyCharm Community Edition
-    Comment=Python IDE
-    Exec=/opt/pycharm-community-${PYCHARM_VERSION}/bin/pycharm.sh
-    Icon=/opt/pycharm-community-${PYCHARM_VERSION}/bin/pycharm.svg
-    Terminal=false
-    Type=Application
-    Categories=Development;IDE;" > /usr/share/applications/pycharm.desktop
+  echo "[Desktop Entry]\n\
+Name=PyCharm Community Edition\n\
+Comment=Python IDE\n\
+Exec=/opt/pycharm-community-${PYCHARM_VERSION}/bin/pycharm.sh\n\
+Icon=/opt/pycharm-community-${PYCHARM_VERSION}/bin/pycharm.svg\n\
+Terminal=false\n\
+Type=Application\n\
+Categories=Development;IDE;" > /usr/share/applications/pycharm.desktop
 #### my added code ####
 
 # add local files
