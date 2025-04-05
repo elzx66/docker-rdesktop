@@ -111,7 +111,7 @@ RUN \
     mkdir -p ${HOME}/Desktop; \
   fi && \
   #cp /usr/share/applications/im-config.desktop ${HOME}/Desktop/ &&\
-  cp /usr/share/applications/chromium.desktop ${HOME}E/Desktop/ &&\
+  cp /usr/share/applications/chromium.desktop ${HOME}/Desktop/ &&\
   cp /usr/share/applications/wps-office-prometheus.desktop ${HOME}/Desktop/ &&\
   echo "[Desktop Entry]\n\
 Name=PyCharm Community Edition\n\
