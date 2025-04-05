@@ -107,8 +107,8 @@ RUN \
 #### my added code ####
 #创建桌面快捷方式：
 RUN \
+  #cp /usr/share/applications/im-config.desktop ~/Desktop/ &&\
   cp /usr/share/applications/chromium.desktop ~/Desktop/ &&\
-  cp /usr/share/applications/im-config.desktop ~/Desktop/ &&\
   cp /usr/share/applications/wps-office-prometheus.desktop ~/Desktop/ &&\
   echo \
     "[Desktop Entry]
