@@ -131,4 +131,6 @@ EXPOSE 3389
 
 VOLUME /config
 
+# 给脚本添加执行权限
+RUN chmod +x /defaults/myinit.sh
 CMD ["/defaults/myinit.sh","${HOME}","${PYCHARM_VERSION}"]
