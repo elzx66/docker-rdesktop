@@ -131,4 +131,4 @@ EXPOSE 3389
 
 VOLUME /config
 
-CMD ["/defaults/myinit.sh",${HOME},${PYCHARM_VERSION}]
+CMD ["/defaults/myinit.sh","${HOME}","${PYCHARM_VERSION}"]
