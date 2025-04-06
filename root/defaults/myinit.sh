@@ -31,7 +31,6 @@ Type=Application
 Categories=Development;IDE;
 EOF
 
-# 初始化一下 fcitx 输入法程序
-# /usr/bin/fcitx-autostart
-/bin/bash -c "fcitx-autostart &"
+# 初始化一下 fcitx 输入法程序，下面的代码也不行，貌似docker版本有bug。
+# /bin/bash -c "fcitx-autostart &"
 echo "自定义脚本myinit.sh完成"
