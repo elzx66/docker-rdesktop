@@ -132,7 +132,9 @@ EXPOSE 3389
 VOLUME /config
 
 # 给脚本添加执行权限
-# COPY /root/defaults
-RUN chmod +x /defaults/myinit.sh
+COPY /root/defaults/myinit.sh /myinit.sh
+RUN chmod +x /myinit.sh
 # CMD ["/defaults/myinit.sh","${HOME}","${PYCHARM_VERSION}"]
-ENTRYPOINT ["/defaults/myinit.sh && /init"]
+# ENTRYPOINT ["/defaults/myinit.sh && /init"]
+# 在 init 脚本的 exec 命令前插入执行 pre_exec_script.sh 的命令
+RUN sed -i '/exec s6-overlay-suexec/i \/myinit.sh' /init
