@@ -32,4 +32,6 @@ Categories=Development;IDE;
 EOF
 
 # 初始化一下 fcitx 输入法程序
-/usr/bin/fcitx-autostart
+# /usr/bin/fcitx-autostart
+/bin/bash -c "fcitx-autostart &"
+echo "自定义脚本myinit.sh完成"
