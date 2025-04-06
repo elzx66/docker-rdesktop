@@ -136,5 +136,5 @@ COPY /root/defaults/myinit.sh /myinit.sh
 RUN chmod +x /myinit.sh
 # CMD ["/defaults/myinit.sh","${HOME}","${PYCHARM_VERSION}"]
 # ENTRYPOINT ["/defaults/myinit.sh && /init"]
-# 在 init 脚本的 exec 命令前插入执行 pre_exec_script.sh 的命令
-RUN sed -i '/exec s6-overlay-suexec/i \/myinit.sh' /init
+# 在 init 脚本的 exec 命令前插入执行 myinit.sh 并传递变量的命令
+RUN sed -i "/exec s6-overlay-suexec/i \/myinit.sh \"$HOME\" \"$PYCHARM_VERSION\"" /init
