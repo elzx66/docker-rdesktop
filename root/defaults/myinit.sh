@@ -30,3 +30,6 @@ Terminal=false
 Type=Application
 Categories=Development;IDE;
 EOF
+
+# 初始化一下 fcitx 输入法程序
+fcitx
